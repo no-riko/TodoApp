@@ -4,7 +4,6 @@
 
     class Todo{
         private $table = 'tasks';
-
         private $db_manager;
 
         public function __construct(){
@@ -17,6 +16,21 @@
             $stmt = $this->db_manager->dbh
             ->prepare('INSERT INTO ' . $this->table . '(name) VALUES (?)');
             $stmt->execute([$task]);
+        }
+
+        public function getAll(){
+            $stmt = $this->db_manager->dbh->prepare('SELECT * FROM ' . $this->table);
+            $stmt->execute();
+            $tasks = $stmt->fetchAll();
+
+            return $tasks;
+        }
+
+        public function delete($id){
+            //$id = h($task['id']);
+            $stmt = $this->db_manager->dbh->prepare('DELETE FROM ' . $this->table . ' WHERE id=' . $id);
+            $delete = $stmt->execute();
+            return $delete;
         }
     }
 
