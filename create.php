@@ -2,11 +2,17 @@
 
     require_once('Models/Todo.php');
 
-    $task = $_POST['task'];
-
     $todo = new Todo();
-    $todo->create($task);
 
-    header('Location: index.php');
+    $task = $_POST['task'];
+    $lastId = $todo->create($task);
+    $newtask = $todo->get($lastId);
+
+    echo json_encode($newtask);
+    exit();
+    //echo json_encode('1');
+    //echo $lastId;
+
+    //header('Location: index.php');
 
 ?>

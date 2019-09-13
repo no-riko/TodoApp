@@ -16,6 +16,8 @@
             $stmt = $this->db_manager->dbh
             ->prepare('INSERT INTO ' . $this->table . '(name) VALUES (?)');
             $stmt->execute([$task]);
+
+            return $this->db_manager->dbh->lastInsertId();
         }
 
         public function getAll(){
